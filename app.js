@@ -1,5 +1,6 @@
 import express from "express";
 import userRouter from "./router/users.js";
+import { messagesRouter } from "./router/messages.js";
 import { connectDb } from "./config/db.js";
 import cookieParser from "cookie-parser";
 import cors from 'cors';
@@ -21,6 +22,7 @@ const startServer = async () => {
     await connectDb();
 
     app.use("/users", userRouter);
+    app.use("/messages", messagesRouter);
 
     app.listen(PORT, () => {
       console.log(`Server running at PORT ${PORT}`);

@@ -18,3 +18,10 @@ Content-Type: application/json
 }
 ### Prueba middleware
 GET http://localhost:3000/users
+### Create message
+POST http://localhost:3000/messages/create
+Content-Type: application/json
+
+{
+    "message": "Hola que tal"
+}
