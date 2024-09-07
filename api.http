@@ -1,0 +1,20 @@
+### Hello
+GET http://localhost:3000/users/hello
+### Create User
+POST http://localhost:3000/users/create
+Content-Type: application/json
+
+{
+    "username": "Egor2",
+    "password": "12345678"
+}
+### Sign In User
+POST http://localhost:3000/users/enter
+Content-Type: application/json
+
+{
+    "username": "Egor2",
+    "password": "12345678"
+}
+### Prueba middleware
+GET http://localhost:3000/users
