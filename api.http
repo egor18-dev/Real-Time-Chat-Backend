@@ -23,5 +23,5 @@ POST http://localhost:3000/messages/create
 Content-Type: application/json
 
 {
-    "message": "Hola que tal"
+    "message": "Prueba"
 }
