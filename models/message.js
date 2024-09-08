@@ -2,6 +2,9 @@ import mongoose from "mongoose";
 const {Schema} = mongoose;
 
 const messageSchema = new Schema({
+    userId: {
+        type: String
+    },
     message: {
         type: String
     }

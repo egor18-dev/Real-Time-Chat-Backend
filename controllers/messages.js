@@ -1,5 +1,7 @@
 import { validateMessage } from "../schemes/message.js";
 import Message from '../models/message.js';
+import { getActualUserId } from "./users.js";
+import jwt from 'jsonwebtoken';
 
 const sendMessage = async (req, res) => {
     const {message} = req.body;
@@ -10,10 +12,17 @@ const sendMessage = async (req, res) => {
         return res.status(422).json({message: messageValidation});
     }
 
+    const userCookies = getActualUserId(req);
+
+    if(!userCookies.token){
+        return res.status(401).json({message: "Porfavor inicia sesión"})
+    }
+
     try{
-        const completedMessage = Message({message: message});  
+    const userId = jwt.verify(userCookies.token, process.env.SECRET_KEY);
+        const completedMessage = Message({userId: userId.id, message: message});  
         const savedMessage = await completedMessage.save();
-    
+
         if(!savedMessage){
             return res.status(500).json({message: "Error al crear el mensaje"});
         }

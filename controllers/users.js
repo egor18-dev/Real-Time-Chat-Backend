@@ -52,7 +52,7 @@ export const signIn = async (req, res) => {
     }
 
     const token = jwt.sign(
-        {id: person.id},
+        {id: person._id},
         process.env.SECRET_KEY,
         {expiresIn: '1h'}
     );
@@ -65,3 +65,9 @@ export const signIn = async (req, res) => {
 
     return res.status(200).json({message: `Welcome ${token}`});
 }   
+
+export const getActualUserId = (req) => {
+    const cookies = req.cookies;
+
+    return cookies;
+}
