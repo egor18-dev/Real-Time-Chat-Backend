@@ -5,9 +5,20 @@ import { connectDb } from "./config/db.js";
 import cookieParser from "cookie-parser";
 import cors from 'cors';
 import dotenv from 'dotenv';
+import {createServer} from 'http';
+import {Server} from 'socket.io';
+
 dotenv.config();
 
 const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+    cors: {
+      origin: 'http://localhost:4200',
+      credentials: true
+    }
+});
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
@@ -16,7 +27,7 @@ app.use(cors({
 }));
 
 const PORT = process.env.PORT || 3000;
-console.log(PORT)
+
 const startServer = async () => {
   try {
     await connectDb();
@@ -24,8 +35,12 @@ const startServer = async () => {
     app.use("/users", userRouter);
     app.use("/messages", messagesRouter);
 
-    app.listen(PORT, () => {
-      console.log(`Server running at PORT ${PORT}`);
+    io.on('connection', (socket) => {
+
+    });
+
+    httpServer.listen(PORT, () => {
+      console.log(`Server running at port ${PORT}`);
     });
   } catch (err) {
     console.log(err);
