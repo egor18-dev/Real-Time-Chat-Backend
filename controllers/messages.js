@@ -2,8 +2,9 @@ import { validateMessage } from "../schemes/message.js";
 import Message from '../models/message.js';
 import { getActualUserId } from "./users.js";
 import jwt from 'jsonwebtoken';
+import User from "../models/user.js";
 
-const sendMessage = async (req, res) => {
+export const sendMessage = async (req, res) => {
     const {message} = req.body;
 
     const messageValidation = validateMessage(req.body);
@@ -35,4 +36,11 @@ const sendMessage = async (req, res) => {
 
 }
 
-export default sendMessage;
+export const getAllMessages = async (req, res) => {
+    try{
+        const allUsers = await Message.find({});
+        res.json(allUsers);
+    }catch(err){
+        return res.status(500).json({message: "Error al cargar los mensajes"});
+    }
+}

@@ -66,6 +66,17 @@ export const signIn = async (req, res) => {
     return res.status(200).json({message: `Welcome ${token}`});
 }   
 
+export const getActualUser = (req, res) => {
+    const userData = getActualUserId(req);
+    const userId = jwt.verify(userData.token, process.env.SECRET_KEY);
+
+    if(!userId.id){
+        return res.status(500).json({message: "Error al encontrar el id"});
+    }
+    
+    return res.json({"id": userId.id});
+}
+
 export const getActualUserId = (req) => {
     const cookies = req.cookies;
 

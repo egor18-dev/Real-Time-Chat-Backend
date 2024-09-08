@@ -25,3 +25,7 @@ Content-Type: application/json
 {
     "message": "Prueba"
 }
+### Get all users
+GET http://localhost:3000/messages/
+### Get Actual User
+GET http://localhost:3000/users/actualUser
